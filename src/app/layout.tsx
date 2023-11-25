@@ -3,6 +3,9 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { ClerkProvider } from '@clerk/nextjs'
 
+import { cn } from "@/lib/utils"
+import { ThemeProvider } from '@/components/theme-provider'
+
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -18,7 +21,22 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={inter.className}><div className='flex justify-center'>{children}</div></body>
+        <body
+          className={cn(
+            "min-h-screen bg-background font-sans antialiased",
+            inter.className,
+            'flex justify-center'
+          )}
+        >
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+        </body>
       </html>
     </ClerkProvider>
   )
