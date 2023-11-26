@@ -16,8 +16,8 @@ const HomePage = () => {
                     flex
                     flex-row"
                 >
-                    <div id='left' className="flex justify-end w-1/2 h-full ">
-                        <div className=" w-3/4 flex flex-col h-full content-between">
+                    <div id='left' className="flex justify-end w-1/2 h-full items-center">
+                        <div className=" w-3/4 flex flex-col">
                             <h1 className="text-6xl font-bold leading-[80px]">{content.title}</h1>
                             <p>{content.body}</p>
                             <Link href={content.CTARedirectURL} className="w-fit">
