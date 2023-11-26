@@ -6,7 +6,7 @@ export default function BaseLayout({
     children: React.ReactNode
   }) {
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col w-[90vw]">
             <MenuBar/>
             <section id="Content">
                 {children}
