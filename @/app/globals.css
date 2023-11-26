@@ -7,10 +7,6 @@
     --background: 0 0% 100%;
     --foreground: 20 14.3% 4.1%;
 
-    --menu-bar: 0 0% 95%;
-
-    --shade-purple: 255 67% 98%;
-
     --card: 0 0% 100%;
     --card-foreground: 20 14.3% 4.1%;
  
@@ -42,10 +38,6 @@
   .dark {
     --background: 20 14.3% 4.1%;
     --foreground: 60 9.1% 97.8%;
-
-    --menu-bar: 214 18% 15%;
-
-    --shade-purple: 318 49% 38%;
  
     --card: 20 14.3% 4.1%;
     --card-foreground: 60 9.1% 97.8%;
