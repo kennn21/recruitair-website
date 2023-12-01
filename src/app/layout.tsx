@@ -30,7 +30,8 @@ export default function RootLayout({
           className={cn(
             "min-h-screen bg-background font-sans antialiased",
             inter.className,
-            'flex justify-center'
+            'flex justify-center',
+            'scrollbar-hide',
           )}
         >
           <ThemeProvider

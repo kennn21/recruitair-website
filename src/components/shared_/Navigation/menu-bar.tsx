@@ -1,5 +1,4 @@
 import { UserButton } from "@clerk/nextjs";
-import { ModeToggle } from "../theme-mode-toggle";
 import Link from "next/link";
 import { SquareUserRound } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -48,10 +47,7 @@ const MenuBar = () => {
                     <UserButton afterSignOutUrl="/"/>
 
                 </div>
-            </header> 
-            <div id="floating" className="absolute bottom-10 right-10 flex">
-                <ModeToggle/>
-            </div>
+            </header>
         </>
      );
 }
