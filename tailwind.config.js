@@ -19,7 +19,6 @@ module.exports = {
       colors: {
         menubar: "hsl(var(--menu-bar))",
         shadepurple: "hsl(var(--shade-purple))",
-        ctabutton: "hsl(var(--cta-button))",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -75,8 +74,5 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    require("tailwindcss-animate"),
-    require('tailwind-scrollbar-hide'),
-  ],
+  plugins: [require("tailwindcss-animate")],
 }
