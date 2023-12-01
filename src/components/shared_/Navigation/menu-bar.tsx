@@ -48,10 +48,7 @@ const MenuBar = () => {
                     <UserButton afterSignOutUrl="/"/>
 
                 </div>
-            </header> 
-            <div id="floating" className="absolute bottom-10 right-10 flex">
-                <ModeToggle/>
-            </div>
+            </header>
         </>
      );
 }
