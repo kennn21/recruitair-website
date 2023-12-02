@@ -1,7 +1,20 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        domains: ['fastly.picsum.photos', "placehold.co", "www.webfx.com"],
+        remotePatterns: [
+            {
+                protocol: "https",
+                hostname: "fastly.picsum.photos",
+            },
+            {
+                protocol: "https",
+                hostname: "www.webfx.com",
+            },
+            {
+                protocol: "https",
+                hostname: "placehold.co",
+            },
+        ],
     }
 }
 

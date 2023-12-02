@@ -6,7 +6,6 @@ const HeroSection = () => {
     const content = HomeContent.hero
 
     return ( 
-        <>
             <section
                 id="Hero"
                 className="
@@ -16,7 +15,7 @@ const HeroSection = () => {
                     flex-row"
                 >
                 <div id='left' className="flex justify-end w-1/2 h-full items-center">
-                    <div className=" w-3/4 flex flex-col">
+                    <div className=" w-3/4 flex flex-col gap-6">
                         <h1 className="text-6xl font-bold leading-[80px]">{content.title}</h1>
                         <p>{content.body}</p>
                         <Link href={content.CTARedirectURL} className="w-fit">
@@ -35,7 +34,6 @@ const HeroSection = () => {
                         />
                 </div>
             </section>
-        </>
      );
 }
  
