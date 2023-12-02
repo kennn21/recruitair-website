@@ -1,4 +1,5 @@
-import JobCard from "@/components/jobs/JobCard";
+import JobList from "@/components/jobs/JobList";
+import JobListItem from "@/components/jobs/JobListItem";
 import { Job } from "@/types/job";
 
 const VacanciesSection = () => {
@@ -69,15 +70,7 @@ const VacanciesSection = () => {
             "
         >
             <h1 className="text-4xl font-bold leading-[80px] text-center w-full h-fit mb-10">{content.title}</h1>
-            <div className="justify-center w-full">
-                <div className="flex flex-row w-full flex-wrap justify-between">
-                    {
-                        dummyJobs.map((job, index)=>(
-                            <JobCard key={`job${index}`} job={job}/>
-                        ))
-                    }
-                </div>
-            </div>
+            <JobList jobs={dummyJobs} />
         </section>
      );
 }
