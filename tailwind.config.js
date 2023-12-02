@@ -19,6 +19,7 @@ module.exports = {
       colors: {
         menubar: "hsl(var(--menu-bar))",
         shadepurple: "hsl(var(--shade-purple))",
+        shadeyellow: "hsl(var(--shade-yellow))",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
