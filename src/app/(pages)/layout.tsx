@@ -7,7 +7,7 @@ export default function BaseLayout({
     children: React.ReactNode
   }) {
     return (
-        <div className="flex flex-col w-[90vw]">
+        <div className="flex flex-col w-[90vw] justify-center">
             <MenuBar/>
             <section id="Content">
                 {children}
