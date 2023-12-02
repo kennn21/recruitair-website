@@ -3,6 +3,7 @@ import { ModeToggle } from "../theme-mode-toggle";
 import Link from "next/link";
 import { SquareUserRound } from "lucide-react";
 import { cn } from "@/lib/utils";
+import SiteLogo from "../site-logo";
 
 
 type menuItem = {
@@ -30,8 +31,7 @@ const MenuBar = () => {
         <>
             <header className='flex justify-between pl-4 pr-4 pt-2 h-14 w-[90vw]'>
                 <div id='left' className="flex w-[fit-content] justify-between items-center">
-                    <SquareUserRound className="light:text-neutral-800 dark:text-gray-100"/>
-                    <h1 className={cn([, "font-extrabold text-xl light:text-neutral-800 dark:text-gray-100"])}>RECRUIT<span className=" text-purple-600">AI</span>R</h1>
+                    <SiteLogo/>
                 </div>
                 <div id='right' className="flex items-center">
                     {
