@@ -1,0 +1,93 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_PRISMA_URL") // uses connection pooling
+  directUrl = env("DATABASE_URL_NON_POOLING") // uses a direct connection
+}
+
+// schema.prisma
+
+// User Table
+model User {
+  id                    Int      @id @default(autoincrement())
+  username              String   @unique
+  password              String
+  email                 String   @unique
+  phoneNumber           String
+  birthDate             DateTime
+  address               String
+  yearsOfWorkExperience Int?
+  willingToWorkInOffice Boolean?
+  experienceInField     Boolean?
+  role                  Role
+
+  // Relationships
+  applications Application[]
+  JobRecruiter JobRecruiter[]
+}
+
+// Job Table
+model Job {
+  id           Int      @id @default(autoincrement())
+  title        String
+  imageUrl     String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  startDate    DateTime
+  endDate      DateTime
+  createdBy    String
+  updatedBy    String
+  description  String   @db.VarChar(255)
+  requirements String   @db.VarChar(255)
+  location     String
+  salary       Float
+
+  // Relationships
+  applications Application[]
+  JobRecruiter JobRecruiter[]
+}
+
+model JobRecruiter {
+  id     Int @id @default(autoincrement())
+  jobId  Int
+  userId Int
+
+  //Relationships
+  job       Job  @relation(fields: [jobId], references: [id])
+  recruiter User @relation(fields: [userId], references: [id])
+}
+
+enum Role {
+  APPLICANT
+  RECRUITER
+}
+
+// Application Table
+model Application {
+  id                    Int      @id @default(autoincrement())
+  jobId                 Int
+  userId                Int
+  applicationDate       DateTime @default(now())
+  status                Status
+  yearsOfWorkExperience Int?
+  willingToWorkInOffice Boolean?
+  experienceInField     Boolean?
+
+  // Relationships
+  job  Job  @relation(fields: [jobId], references: [id])
+  user User @relation(fields: [userId], references: [id])
+}
+
+enum Status {
+  INITIAL_APPLICATION
+  UNDER_REVIEW
+  INTERVIEW_SCHEDULED
+  INTERVIEWED
+  PENDING_DECISION
+  OFFER_EXTENDED
+  OFFER_ACCEPTED
+  ONBOARDING
+  ACCEPTED
+  REJECTED
+}
