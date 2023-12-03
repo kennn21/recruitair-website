@@ -1,9 +1,8 @@
-import { Job } from "@/types/job";
+import { JobType as Job } from "@/types/job";
 import JobListItem from "./JobListItem";
 
 const JobList = ({ jobs }: {jobs: Job[]}) => {
     return ( 
-        <>
             <div className="justify-center w-full">
                 <div className="flex flex-row w-full flex-wrap justify-between gap-2">
                     {
@@ -13,7 +12,6 @@ const JobList = ({ jobs }: {jobs: Job[]}) => {
                     }
                 </div>
             </div>
-        </>
      );
 }
  
