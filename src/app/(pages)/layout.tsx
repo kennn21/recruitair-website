@@ -10,7 +10,7 @@ export default function BaseLayout({
     return (
         <div className="flex flex-col w-[90vw] justify-start items-center">
             <MenuBar/>
-            <section id="Content">
+            <section id="Content" className="w-full">
                 {children}
             </section>
             <Footer/>

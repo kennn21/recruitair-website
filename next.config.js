@@ -4,18 +4,10 @@ const nextConfig = {
         remotePatterns: [
             {
                 protocol: "https",
-                hostname: "fastly.picsum.photos",
-            },
-            {
-                protocol: "https",
-                hostname: "www.webfx.com",
-            },
-            {
-                protocol: "https",
-                hostname: "placehold.co",
+                hostname: "**",
             },
         ],
-    }
+    },
 }
 
 module.exports = nextConfig
