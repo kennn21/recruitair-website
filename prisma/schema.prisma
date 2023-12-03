@@ -6,6 +6,10 @@ datasource db {
   directUrl = env("DATABASE_URL_NON_POOLING") // uses a direct connection
 }
 
+generator client {
+  provider = "prisma-client-js"
+}
+
 // schema.prisma
 
 // User Table
