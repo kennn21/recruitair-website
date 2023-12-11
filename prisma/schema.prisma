@@ -12,7 +12,15 @@
 //   directUrl = env("DATABASE_URL_NON_POOLING") // uses a direct connection
 // }
 
+// datasource db {
+//   provider  = "postgresql"
+//   url       = env("DATABASE_PRISMA_URL") // uses connection pooling
+//   directUrl = env("DATABASE_URL_NON_POOLING") // uses a direct connection
+// }
+
 datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
@@ -26,6 +34,10 @@ generator client {
 // User Table
 model User {
   id                    Int      @id @default(autoincrement())
+  externalId            String   @unique
+  imageUrl              String
+  FirstName             String
+  LastName              String
   externalId            String   @unique
   imageUrl              String
   FirstName             String
