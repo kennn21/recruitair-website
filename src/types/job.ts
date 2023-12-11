@@ -1,3 +1,3 @@
-import { Job } from "@prisma/client"
+import { Job as PrismaJob } from "@prisma/client"
 
-export type JobType = Partial<Job>
+export type Job = Partial<PrismaJob>

@@ -1,4 +1,4 @@
-import { JobType as Job } from "@/types/job";
+import { Job as Job } from "@/types/job";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader } from "../ui/card";
 import Image from "next/image";
 
