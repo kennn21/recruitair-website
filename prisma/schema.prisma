@@ -1,9 +1,14 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
+// datasource db {
+//   provider  = "postgresql"
+//   url       = env("DATABASE_PRISMA_URL") // uses connection pooling
+//   directUrl = env("DATABASE_URL_NON_POOLING") // uses a direct connection
+// }
+
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_PRISMA_URL") // uses connection pooling
-  directUrl = env("DATABASE_URL_NON_POOLING") // uses a direct connection
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 generator client {
@@ -15,10 +20,11 @@ generator client {
 // User Table
 model User {
   id                    Int      @id @default(autoincrement())
-  username              String   @unique
-  password              String
+  externalId            String   @unique
+  imageUrl              String
+  FirstName             String
+  LastName              String
   email                 String   @unique
-  phoneNumber           String
   birthDate             DateTime
   address               String
   yearsOfWorkExperience Int?

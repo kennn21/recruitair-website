@@ -4,9 +4,9 @@ import JobListItem from "./JobListItem";
 const JobList = ({ jobs }: {jobs: Job[]}) => {
     return ( 
             <div className="justify-center w-full">
-                <div className="flex flex-row w-full flex-wrap justify-between gap-2">
+                <div className="flex flex-row w-full flex-wrap justify-center gap-2 items-center min-h-[50vh]">
                     
-                    { jobs ?
+                    { jobs.length > 0 ?
                         jobs.map((job, index)=>(
                             <JobListItem key={`job${index}`} job={job}/>
                         ))
