@@ -2,7 +2,6 @@
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import * as z from "zod"
 import { cn } from "@/lib/utils"
 import { CaretSortIcon, CheckIcon, CalendarIcon } from "@radix-ui/react-icons"
 import { Input } from "@/components/ui/input"
@@ -11,6 +10,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Calendar } from "@/components/ui/calendar"
 import Link from "next/link"
 import { format } from "date-fns"
+import { createApplicationSchema, createApplicationSchemaType } from "@/types/schema/createApplication"
 
 import {
   Form,
@@ -36,121 +36,24 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-} from "@/components/ui/command"
-
-const provinces = [
-  { label: "Aceh", value: "aceh" },
-  { label: "Bali", value: "bali" },
-  { label: "Banten", value: "banten" },
-  { label: "Bengkulu", value: "bengkulu" },
-  { label: "Central Java", value: "central_java" },
-  { label: "Central Kalimantan", value: "central_kalimantan" },
-  { label: "Central Sulawesi", value: "central_sulawesi" },
-  { label: "East Java", value: "east_java" },
-  { label: "East Kalimantan", value: "east_kalimantan" },
-  { label: "East Nusa Tenggara", value: "east_nusa_tenggara" },
-  { label: "Gorontalo", value: "gorontalo" },
-  { label: "Jakarta", value: "jakarta" },
-  { label: "Jambi", value: "jambi" },
-  { label: "Lampung", value: "lampung" },
-  { label: "Maluku", value: "maluku" },
-  { label: "North Kalimantan", value: "north_kalimantan" },
-  { label: "North Maluku", value: "north_maluku" },
-  { label: "North Sulawesi", value: "north_sulawesi" },
-  { label: "North Sumatra", value: "north_sumatra" },
-  { label: "Papua", value: "papua" },
-  { label: "Riau", value: "riau" },
-  { label: "Riau Islands", value: "riau_islands" },
-  { label: "South Kalimantan", value: "south_kalimantan" },
-  { label: "South Sulawesi", value: "south_sulawesi" },
-  { label: "South Sumatra", value: "south_sumatra" },
-  { label: "Southeast Sulawesi", value: "southeast_sulawesi" },
-  { label: "West Java", value: "west_java" },
-  { label: "West Kalimantan", value: "west_kalimantan" },
-  { label: "West Nusa Tenggara", value: "west_nusa_tenggara" },
-  { label: "West Papua", value: "west_papua" },
-  { label: "West Sulawesi", value: "west_sulawesi" },
-  { label: "West Sumatra", value: "west_sumatra" },
-  { label: "Yogyakarta", value: "yogyakarta" },
-];
-
-const cities = [
-  { label: "Jakarta", value: "jakarta" },
-  { label: "Surabaya", value: "surabaya" },
-  { label: "Medan", value: "medan" },
-  { label: "Bandung", value: "bandung" },
-  { label: "Semarang", value: "semarang" },
-  { label: "Makassar", value: "makassar" },
-  { label: "Palembang", value: "palembang" },
-  { label: "Tangerang", value: "tangerang" },
-  { label: "Depok", value: "depok" },
-  { label: "Manado", value: "manado" },
-  { label: "Balikpapan", value: "balikpapan" },
-  { label: "Yogyakarta", value: "yogyakarta" },
-  { label: "Malang", value: "malang" },
-  { label: "Banjarmasin", value: "banjarmasin" },
-  { label: "Denpasar", value: "denpasar" },
-];
-  
-
-const formSchema = z.object({
-  username: z.string({
-    required_error: "Username is required.",
-  }),
-  email: z.string({
-    required_error: "Email is required.",
-  }),
-  phoneNumber: z.string({
-    required_error: "Phone Number is required.",
-  }),
-  dob: z.date({
-    required_error: "A date of birth is required.",
-  }),
-  workExperiences: z.coerce.number({
-        invalid_type_error: "Work Experiences must be a number.",
-        required_error: "work Experience is required.",
-  }),
-  isWorkInOffice : z.string({
-    required_error: "work in office is required.",
-  }),
-  isHaveExperience: z.string({
-    required_error: "Experience is required.",
-  }),
-  address: z.object({
-    street: z.string({
-      required_error: "Street address is required.",
-    }),
-    city: z.string({
-      required_error: "City is required.",
-    }),
-    province: z.string({
-      required_error: "Province is required.",
-    }),
-    zipCode: z.coerce.number({
-        invalid_type_error: "Zip Code must be a number.",
-        required_error: "Zip code is required.",
-    })
-  }),
-  fileCv: typeof window === 'undefined' ? z.null() : z.instanceof(File),
-})
+import { createApplication } from "@/actions/application"
 
 const JobForm = () => {
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
+    const form = useForm<createApplicationSchemaType>({
+        resolver: zodResolver(createApplicationSchema),
         defaultValues: {
-        /*   fileCv: new File([], "") */
         },
       })
 
-      function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values)
+    const onSubmit = async (data: createApplicationSchemaType) => {
+      try {
+        console.log(data);
+        await createApplication(data);
+      } catch(e: any) {
+        alert("ERROR!");
+        console.log("Error while creating application ", e);
       }
+    }
 
   return (
     <Form {...form}>
@@ -242,165 +145,6 @@ const JobForm = () => {
 
     <FormField
         control={form.control}
-        name="address.street"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Current Street Address</FormLabel>
-            <FormControl>
-              <Input placeholder="Input Street Address" {...field} type="text"/>
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-
-    <div className="grid grid-cols-3 gap-x-10"> 
-      <FormField
-        control={form.control}
-        name="address.city"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>City</FormLabel>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <FormControl>
-                    <Button
-                      aria-required
-                      variant="outline"
-                      role="combobox"
-                      className={cn(
-                        "w-full flex",
-                        !field.value && "text-muted-foreground"
-                      )}
-                    >
-                      <span className="flex-grow text-left">
-                        {field.value
-                          ? cities.find(
-                              (city) => city.value === field.value
-                            )?.label
-                          : "Select city"}
-                      </span>
-                      <CaretSortIcon className="ml-2 w-4 h-4 shrink-0 opacity-50"/>
-                    </Button>
-                  </FormControl>
-                </PopoverTrigger>
-                <PopoverContent className="w-full p-0">
-                  <Command>
-                    <CommandInput
-                      placeholder="Search city..."
-                      className="h-9 w-full"
-                    />
-                    <CommandEmpty>No city found.</CommandEmpty>
-                    <CommandGroup>
-                      {cities.map((city) => (
-                        <CommandItem
-                          value={city.label}
-                          key={city.value}
-                          onSelect={() => {
-                            form.setValue("address.city", city.value)
-                          }}
-                        >
-                          {city.label}
-                          <CheckIcon
-                            className={cn(
-                              "ml-auto h-4 w-4",
-                              city.value === field.value
-                                ? "opacity-100"
-                                : "opacity-0"
-                            )}
-                          />
-                        </CommandItem>
-                      ))}
-                    </CommandGroup>
-                  </Command>
-                </PopoverContent>
-              </Popover>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-
-      <FormField
-        control={form.control}
-        name="address.province"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Province</FormLabel>
-            <Popover>
-                <PopoverTrigger asChild>
-                  <FormControl>
-                    <Button
-                      variant="outline"
-                      role="combobox"
-                      className={cn(
-                        "w-full flex",
-                        !field.value && "text-muted-foreground"
-                      )}
-                    >
-                      <span className="flex-grow text-left">
-                        {field.value
-                          ? provinces.find(
-                              (province) => province.value === field.value
-                            )?.label
-                          : "Select province"}
-                      </span>
-                      <CaretSortIcon className="ml-2 w-4 h-4 shrink-0 opacity-50"/>
-                    </Button>
-                  </FormControl>
-                </PopoverTrigger>
-                <PopoverContent className="w-full p-0">
-                  <Command>
-                    <CommandInput
-                      placeholder="Search province..."
-                      className="h-9 w-full"
-                    />
-                    <CommandEmpty>No province found.</CommandEmpty>
-                    <CommandGroup>
-                      {provinces.map((province) => (
-                        <CommandItem
-                          value={province.label}
-                          key={province.value}
-                          onSelect={() => {
-                            form.setValue("address.province", province.value)
-                          }}
-                        >
-                          {province.label}
-                          <CheckIcon
-                            className={cn(
-                              "ml-auto h-4 w-4",
-                              province.value === field.value
-                                ? "opacity-100"
-                                : "opacity-0"
-                            )}
-                          />
-                        </CommandItem>
-                      ))}
-                    </CommandGroup>
-                  </Command>
-                </PopoverContent>
-              </Popover>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-
-      <FormField
-        control={form.control}
-        name="address.zipCode"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Zip Code</FormLabel>
-            <FormControl>
-              <Input placeholder="Input Zip Code" {...field} className="w-full" type="number" />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-    </div>
-
-    <FormField
-        control={form.control}
         name="workExperiences"
         render={({ field }) => (
           <FormItem>
@@ -452,28 +196,6 @@ const JobForm = () => {
                     <SelectItem value="NO">No</SelectItem>
                 </SelectContent>
             </Select>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-
-      <FormField
-        control={form.control}
-        name="fileCv"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Upload CV</FormLabel>
-            <FormControl>
-              <Input
-                required
-                accept=".pdf, .docx" 
-                className="w-full" 
-                type="file" 
-                onChange={(e) =>
-                  field.onChange(e.target.files ? e.target.files[0] : null)
-                }
-                />
-            </FormControl>
             <FormMessage />
           </FormItem>
         )}
