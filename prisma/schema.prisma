@@ -13,9 +13,8 @@
 // }
 
 // datasource db {
-//   provider  = "postgresql"
-//   url       = env("DATABASE_PRISMA_URL") // uses connection pooling
-//   directUrl = env("DATABASE_URL_NON_POOLING") // uses a direct connection
+//   provider = "postgresql"
+//   url      = env("DATABASE_URL")
 // }
 
 datasource db {
@@ -37,7 +36,7 @@ model User {
   imageUrl              String
   FirstName             String
   LastName              String
-  email                 String   @unique
+  email                 String
   birthDate             DateTime
   address               String
   yearsOfWorkExperience Int?
@@ -79,6 +78,9 @@ model JobRecruiter {
   //Relationships
   job       Job  @relation(fields: [jobId], references: [id])
   recruiter User @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([jobId])
 }
 
 enum Role {
@@ -100,6 +102,9 @@ model Application {
   // Relationships
   job  Job  @relation(fields: [jobId], references: [id])
   user User @relation(fields: [userId], references: [id])
+
+  @@index([jobId])
+  @@index([userId])
 }
 
 enum Status {

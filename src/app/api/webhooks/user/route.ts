@@ -45,7 +45,7 @@ import { headers } from "next/headers";
 // }
 // }
 
-type EventType = "user.created" | "user.updated" | "*";
+type EventType = "user.created" | "user.updated" | "session.created" | "*";
 
 type Event = {
   data: Record<string, string | number>;
@@ -107,14 +107,18 @@ async function handler(request: Request) {
                 birthday,
             } = evt.data
 
-            if(evt.type === "user.created" || evt.type === "user.updated")
+            if(
+              evt.type === "user.created" ||
+              evt.type === "user.updated" ||
+              evt.type === "session.created"
+              )
             {
             const response = await prisma.user.upsert({
                 where: { externalId: id as string},
                 create: {
                   externalId: id as string,
-                  FirstName: first_name as string,
-                  LastName: last_name as string,
+                  FirstName: first_name as string || "",
+                  LastName: last_name as string || "",
                   // @ts-ignore
                   email: email_addresses[0]?.email_address as string,
                   imageUrl: profile_image_url as string,
@@ -132,7 +136,7 @@ async function handler(request: Request) {
                  }, 
               });
 
-              if(!response) return console.log("failed to update profile")
+              if(!response) return NextResponse.json({error: "failed to create/update profile"});
 
             console.log(id);
             return NextResponse.json(evt.data);
@@ -141,6 +145,8 @@ async function handler(request: Request) {
         console.error('Error verifying webhook:', e);
         return NextResponse.json({error: e});
     }
+
+    return NextResponse.json(evt.data)
 } catch(e){
     console.error(e)
     return NextResponse.json({error: e});
