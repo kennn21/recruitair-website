@@ -137,11 +137,13 @@ async function handler(request: Request) {
             console.log(id);
             return NextResponse.json(evt.data);
             }        
-    } catch (err) {
-        console.error('Error verifying webhook:', err);
+    } catch (e) {
+        console.error('Error verifying webhook:', e);
+        return NextResponse.json({error: e});
     }
 } catch(e){
     console.error(e)
+    return NextResponse.json({error: e});
 }
 }
 export const GET = handler;
