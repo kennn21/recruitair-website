@@ -115,7 +115,7 @@ async function handler(request: Request) {
                   externalId: id as string,
                   FirstName: first_name as string,
                   LastName: last_name as string,
-                  email: email_addresses[0].email_address,
+                  email: email_addresses[0]?.email_address as string,
                   imageUrl: profile_image_url as string,
                   birthDate: birthday ? new Date(birthday as string) : new Date(0),
                   address: "",
@@ -124,7 +124,7 @@ async function handler(request: Request) {
                 update: { 
                   FirstName: first_name as string,
                   LastName: last_name as string,
-                  email: email_addresses[0].email_address,
+                  email: email_addresses[0]?.email_address as string,
                   imageUrl: profile_image_url as string,
                   birthDate: birthday ? new Date(birthday as string) : new Date(0),
                  }, 
