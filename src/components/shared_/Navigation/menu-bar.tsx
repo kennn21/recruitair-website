@@ -25,6 +25,10 @@ const MenuBar = () => {
             label: "About",
             path: '/about',
         },
+        {
+            label: "Profile",
+            path: '/profile/edit',
+        },
     ]
 
     return ( 
