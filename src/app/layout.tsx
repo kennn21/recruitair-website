@@ -3,6 +3,8 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { ClerkProvider } from '@clerk/nextjs'
 
+import { Toaster } from 'sonner';
+
 import { cn } from "@/lib/utils"
 import { ThemeProvider } from '@/components/theme-provider'
 import { dark } from '@clerk/themes'
@@ -41,6 +43,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             {children}
+            <Toaster />
           </ThemeProvider>
         </body>
       </html>
