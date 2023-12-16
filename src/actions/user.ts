@@ -1,7 +1,7 @@
 "use server"
 import prisma from "@/lib/prisma";
 import { currentUser } from "@clerk/nextjs";
-import { User } from "@prisma/client";
+import { Role, User } from "@prisma/client";
 
 export const GetCurrentUserProfile = async (): Promise<User | null> => {
     const user = await currentUser();
@@ -21,8 +21,8 @@ export const GetCurrentUserProfile = async (): Promise<User | null> => {
 }
 
 export const UpdateUserProfile = async (data: Partial<User>): Promise<User | null> => {
-    try {
 
+    try {
         const profile = await prisma.user.update({
             where: {
                 id: data.id
@@ -42,5 +42,37 @@ export const UpdateUserProfile = async (data: Partial<User>): Promise<User | nul
     } catch (e) {
         console.error(e)
         return null
+    }
+}
+
+export const SwitchRole = async (newRole: Role) => {
+    const user = await currentUser();
+    try {
+        const profile = await prisma.user.update({
+            where: {
+                externalId: user?.id
+            },
+            data: {
+                role: newRole
+            }
+        })
+        return {message: newRole.toString(), externalId: profile.externalId}
+    } catch (e) {
+        return {error: e}
+    }
+}
+
+export const GetCurrentRole = async () => {
+    const user = await currentUser();
+    try {
+        const Role = await prisma.user.findFirst({
+            where: {
+                externalId: user?.id
+            }
+        })
+
+        return Role
+    } catch (e) {
+        return {error: e}
     }
 }

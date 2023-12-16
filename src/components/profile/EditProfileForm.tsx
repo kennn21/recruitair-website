@@ -10,6 +10,9 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Calendar } from "@/components/ui/calendar"
 import Link from "next/link"
 import { format } from "date-fns"
+import { toast } from 'sonner';
+import ClipLoader from "react-spinners/ClipLoader";
+
 
 import {
   Form,
@@ -34,26 +37,32 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
-import { GetCurrentUserProfile, UpdateUserProfile } from "@/actions/user"
+import { GetCurrentUserProfile, SwitchRole, UpdateUserProfile } from "@/actions/user"
 import { User } from "@/types/user"
 import { useEffect, useState } from "react"
 import { useUser } from "@clerk/nextjs"
+import { Role } from "@prisma/client"
 
 const EditProfileForm = () => {
     const [userProfile, setUserProfile] = useState<User | null>(null);
 
-    useEffect(() => {
-      const fetchUserProfile = async () => {
+    const fetchUserProfile = async () => {
+        console.log("fetching")
         const profile = await GetCurrentUserProfile();
         setUserProfile(profile);
       };
-  
+
+    useEffect(() => {
       fetchUserProfile();
     }, []);
   
     const form = useForm<User>({
       defaultValues: userProfile || {},
     })
+
+    const refetch = async () => {
+        await fetchUserProfile();
+      };
 
     useEffect(() => {
         form.reset(userProfile || {})
@@ -68,6 +77,7 @@ const EditProfileForm = () => {
       }
     }
     return ( 
+        userProfile ?
         <>
             <h2>{userProfile?.FirstName}</h2>
             <Form {...form}>
@@ -196,8 +206,36 @@ const EditProfileForm = () => {
 
                 </form>
                 </Form>
+                <Button
+                    onClick={
+                        async () => {
+                            const res = await SwitchRole(userProfile?.role === "APPLICANT" ? "RECRUITER" as Role : "APPLICANT" as Role)
+
+                            if(!res.error) {
+                                refetch()
+                                return toast(`Changed to ${res.message}`)
+                            }
+                            toast(`Failed ${res.error}`)
+                        } 
+                    }
+                >
+                    {
+                        userProfile?.role === "APPLICANT" ?
+                        "Switch to Recruiter" :
+                        "Switch to Applicant"
+                    }
+                </Button>
         </>
-     );
+        :
+        <div className="flex justify-center items-center min-h-[90vh]">
+            <ClipLoader
+            loading={true}
+            size={50}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+        />
+        </div>
+     )
 }
  
 export default EditProfileForm;
