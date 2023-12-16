@@ -1,5 +1,6 @@
 import { Job as Job } from "@/types/job";
 import JobListItem from "./JobListItem";
+import Link from 'next/link'
 
 const JobList = ({ jobs }: {jobs: Job[]}) => {
     return ( 
@@ -8,7 +9,7 @@ const JobList = ({ jobs }: {jobs: Job[]}) => {
                     
                     { jobs.length > 0 ?
                         jobs.map((job, index)=>(
-                            <JobListItem key={`job${index}`} job={job}/>
+                            <Link href={`/jobs/${job.id}`}><JobListItem key={`job${index}`} job={job}/></Link>
                         ))
                         :
                         <h1>No vacancies at the moment. Keep sharpening your skills for upcoming job openings!</h1>
