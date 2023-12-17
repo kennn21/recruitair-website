@@ -13,7 +13,7 @@ export default function AIChatButton() {
     <>
       <Button onClick={() => setChatBoxOpen(true)}>
         <Bot size={20} className="mr-2" />
-        AI Chat
+        Ask us questions!
       </Button>
       <AIChatBox open={chatBoxOpen} onClose={() => setChatBoxOpen(false)} />
     </>

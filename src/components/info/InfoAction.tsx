@@ -11,11 +11,14 @@ export default function InfoAction() {
 
   return (
     <div>
-      <Button onClick={() => setShowAddEditInfoDialog(true)}>
-        <Plus size={20} className="mr-2" />
-        Add Info
+      <Button
+        className="fixed bottom-10 left-10 flex w-[48px] h-[48px] rounded-full p-1"
+        onClick={() => setShowAddEditInfoDialog(true)}
+        >
+        <Plus
+          size={24}
+          />
       </Button>
-      <AIChatButton />
       <AddEditInfoDialog
         open={showAddEditInfoDialog}
         setOpen={setShowAddEditInfoDialog}
