@@ -6,7 +6,7 @@ import AddEditInfoDialog from "@/components/ui/custom/AddEditInfoDialog";
 import { Plus } from "lucide-react";
 import { useState } from "react";
 
-export default function InfoItem() {
+export default function InfoAction() {
   const [showAddEditInfoDialog, setShowAddEditInfoDialog] = useState(false);
 
   return (
