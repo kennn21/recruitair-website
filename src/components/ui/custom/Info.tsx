@@ -15,7 +15,7 @@ interface InfoProps {
   info: InfoModel;
 }
 
-export default function info({ info }: InfoProps) {
+export default function Info({ info }: InfoProps) {
   const [showEditDialog, setShowEditDialog] = useState(false);
 
   const wasUpdated = info.updatedAt > info.createdAt;

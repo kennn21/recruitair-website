@@ -12,16 +12,17 @@
 //   directUrl = env("DATABASE_URL_NON_POOLING") // uses a direct connection
 // }
 
+// datasource db {
+//   provider = "postgresql"
+//   url      = env("DATABASE_URL")
+// }
+
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
-// datasource db {
-//   provider     = "mysql"
-//   url          = env("DATABASE_URL")
-//   relationMode = "prisma"
-// }
 generator client {
   provider = "prisma-client-js"
 }
@@ -30,7 +31,7 @@ generator client {
 
 //Info Table
 model Info {
-  id        String    @id @default(uuid()) @db.Uuid
+  id        String   @id @default(uuid())
   title     String
   content   String?
   userId    String
@@ -39,7 +40,6 @@ model Info {
 
   @@map("info")
 }
-
 
 // User Table
 model User {
