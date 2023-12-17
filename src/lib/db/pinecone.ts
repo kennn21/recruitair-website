@@ -11,4 +11,4 @@ const pinecone = new Pinecone({
     apiKey,
 });
 
-export const notesIndex = pinecone.Index("nextjs-recruitair");
+export const infoIndex = pinecone.Index("nextjs-recruitair");

@@ -5,7 +5,6 @@ import { SquareUserRound } from "lucide-react";
 import { cn } from "@/lib/utils";
 import SiteLogo from "../site-logo";
 
-
 type menuItem = {
     label: string,
     path: string,
@@ -29,6 +28,10 @@ const MenuBar = () => {
             label: "Profile",
             path: '/profile/edit',
         },
+        {
+            label: "Add Info",
+            path: "/info",
+        }
     ]
 
     return ( 
