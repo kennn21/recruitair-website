@@ -21,7 +21,7 @@ export async function POST(req: Request) {
     const vectorQueryResponse = await infoIndex.query({
       vector: embedding,
       topK: 4, //how many result we want to return, more result more expensive
-      filter: { userId }, //filter from user ID, can change into roleID
+      filter: { userId }, //filter from user ID
     });
 
     const relevantInfo = await prisma.info.findMany({
