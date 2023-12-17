@@ -5,7 +5,7 @@ import { Metadata } from "next";
 import InfoItem from "@/components/info/InfoItem";
 
 export const metadata: Metadata = {
-  title: "recruitAIr - company information",
+  title: "RECRUITAIR - Company Information",
 };
 
 export default async function InfoPage() {

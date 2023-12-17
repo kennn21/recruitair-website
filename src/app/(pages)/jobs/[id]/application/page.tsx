@@ -1,4 +1,9 @@
 import JobForm from "@/components/jobs/JobForm";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Recruitair - Job Application",
+  };
 
 type ApplicationPageProps = {
     params: {
