@@ -47,7 +47,7 @@ model User {
   externalId            String   @unique
   imageUrl              String
   FirstName             String
-  LastName              String
+  LastName              String   @default("")
   email                 String
   birthDate             DateTime
   address               String

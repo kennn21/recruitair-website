@@ -1,51 +1,7 @@
 import prisma from "@/lib/prisma";
-// import { CreateUserDto } from "@/types/validations/user.dto";
-// import { clerkClient } from "@clerk/nextjs/server";
-// import { IncomingHttpHeaders } from "http";
 import { headers } from "next/headers";
-// import { NextResponse } from "next/server";
-// import { Webhook, WebhookRequiredHeaders } from "svix";
 
-// const webhookSecret = process.env.WEBHOOK_SECRET || "";
-
-// const handler = async (request: Request) => {
-//   const payload = await request.json();
-//   const body = JSON.stringify(payload);
-//   const headersList = headers();
-//   const heads = {
-//     "svix-id": headersList.get("svix-id"),
-//     "svix-timestamp": headersList.get("svix-timestamp"),
-//     "svix-signature": headersList.get("svix-signature"),
-//   };
-//   const wh = new Webhook(webhookSecret);
-//   let evt: Event | null = null;
-
-//   try {
-//     evt = wh.verify(
-//       JSON.stringify(payload),
-//       heads as IncomingHttpHeaders & WebhookRequiredHeaders
-//     ) as Event;
-//   } catch (err) {
-//     console.error((err as Error).message);
-//     return NextResponse.json({}, { status: 400 });
-//   }
-
-//   const eventType: EventType = evt.type;
-//   if (eventType === "user.created" || eventType === "user.updated") {
-//     // const { id, profile_image_url, first_name, last_name, email_addresses, birthday  } = evt.data;
-
-//   // Get the ID and type
-//   const { id } = evt.data;
-//   const eventType = evt.type;
- 
-//   console.log(`Webhook with and ID of ${id} and type of ${eventType}`)
-//   console.log('Webhook body:', body)
- 
-//   return new Response('', { status: 200 })
-// }
-// }
-
-type EventType = "user.created" | "user.updated" | "session.created" | "*";
+type EventType = "user.created" | "user.updated" | "*";
 
 type Event = {
   data: Record<string, string | number>;
@@ -54,9 +10,6 @@ type Event = {
 };
 
 import { IncomingHttpHeaders } from "http";
-// export const GET = handler;
-// export const POST = handler;
-// export const PUT = handler;
 
 import { NextResponse } from "next/server";
 import { Webhook, WebhookRequiredHeaders } from "svix";
@@ -101,7 +54,6 @@ async function handler(request: Request) {
             const {
                 id,
                 first_name,
-                last_name,
                 email_addresses,
                 profile_image_url,
                 birthday,
@@ -109,8 +61,7 @@ async function handler(request: Request) {
 
             if(
               evt.type === "user.created" ||
-              evt.type === "user.updated" ||
-              evt.type === "session.created"
+              evt.type === "user.updated"
               )
             {
             const response = await prisma.user.upsert({
@@ -118,7 +69,7 @@ async function handler(request: Request) {
                 create: {
                   externalId: id as string,
                   FirstName: first_name as string || "",
-                  LastName: last_name as string || "",
+                  LastName: evt.data.last_name ? evt.data.last_name as string :"Last",
                   // @ts-ignore
                   email: email_addresses[0]?.email_address as string,
                   imageUrl: profile_image_url as string,
@@ -128,7 +79,7 @@ async function handler(request: Request) {
                 },
                 update: { 
                   FirstName: first_name as string,
-                  LastName: last_name as string,
+                  LastName: evt.data.last_name ? evt.data.last_name as string :"Last",
                   // @ts-ignore
                   email: email_addresses[0]?.email_address as string,
                   imageUrl: profile_image_url as string,
