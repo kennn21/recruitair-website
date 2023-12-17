@@ -62,16 +62,18 @@ export const SwitchRole = async (newRole: Role) => {
     }
 }
 
-export const GetCurrentRole = async () => {
+export const GetCurrentRole = async (): Promise<Role | {error: any}> => {
     const user = await currentUser();
     try {
-        const Role = await prisma.user.findFirst({
+        const profile: User | null = await prisma.user.findFirst({
             where: {
                 externalId: user?.id
             }
         })
 
-        return Role
+        if(!profile) return {error: "Failed to get user profile"}
+
+        return profile.role
     } catch (e) {
         return {error: e}
     }
