@@ -1,6 +1,6 @@
-import { CTAButton } from "@/components/ui/custom/CTAButton";
 import { HomeContent } from "@/content/home";
 import Image from "next/image";
+import AIChatButton from "@/components/chatbot/AIChatButton";
 import Link from "next/link";
 
 const MissionSection = () => {
@@ -28,6 +28,7 @@ const MissionSection = () => {
                 alt={"Hero Image"}
                 />
         </div>
+        
     </section>
      );
 }
