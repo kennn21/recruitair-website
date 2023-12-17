@@ -16,8 +16,8 @@ export default function BaseLayout({
             </section>
             <Footer/>
             <div id="floating" className="fixed bottom-10 right-10 flex gap-2">
-                <ModeToggle/> 
                 <AIChatButton />
+                <ModeToggle/> 
             </div>
         </div>
 

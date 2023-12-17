@@ -11,7 +11,7 @@ export default function AIChatButton() {
 
   return (
     <>
-      <Button onClick={() => setChatBoxOpen(true)}>
+      <Button onClick={() => setChatBoxOpen(true)} className="transition-all w-fit">
         <Bot size={20} className="mr-2" />
         Ask us questions!
       </Button>
