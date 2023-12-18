@@ -53,6 +53,10 @@ const MenuBar = async () => {
             label: "About",
             path: '/about',
         },
+        {
+            label: "Profile",
+            path: '/profile/edit',
+        },
 
     ]
 

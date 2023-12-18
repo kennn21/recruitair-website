@@ -4,6 +4,7 @@ import { auth } from "@clerk/nextjs";
 import { infoIndex } from "@/lib/db/pinecone";
 import { OpenAIStream, StreamingTextResponse } from "ai";
 import prisma from "@/lib/prisma";
+import { basePrompt } from "@/config/basePrompt";
 
 export async function POST(req: Request) {
   try {
@@ -32,16 +33,16 @@ export async function POST(req: Request) {
       },
     });
 
-    console.log("Relevant info found: ", relevantInfo);
+    // console.log("Relevant info found: ", relevantInfo);
 
     const systemMessage: ChatCompletionMessage = {
       role: "assistant", //system
       content:
-        "You are an intelligent information app. You answer the user's question based on their existing info. " +
-        "The relevant information for this query are:\n" +
-        relevantInfo
-          .map((info) => `Title: ${info.title}\n\nContent:\n${info.content}`)
-          .join("\n\n"),
+      "The CONTEXT for this query are:\n" +
+      relevantInfo
+        .map((info) => `Title: ${info.title}\n\nContent:\n${info.content}`)
+        .join("\n\n") +
+      basePrompt 
     };
 
     const response = await openai.chat.completions.create({
