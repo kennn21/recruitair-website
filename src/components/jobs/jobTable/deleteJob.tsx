@@ -38,6 +38,7 @@ const DeleteJobTable = ({ job }: Props) => {
       })
       router.refresh();
     } catch (e) {
+      console.log(e)
       toast.warning('Error Deleting Job!')
     }
   };

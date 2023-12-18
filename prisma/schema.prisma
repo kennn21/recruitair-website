@@ -100,7 +100,7 @@ model Application {
   experienceInField     Boolean?
 
   // Relationships
-  job  Job  @relation(fields: [jobId], references: [id])
+  job  Job  @relation(fields: [jobId], references: [id], onDelete: Cascade)
   user User @relation(fields: [userId], references: [id])
 
   @@index([jobId])

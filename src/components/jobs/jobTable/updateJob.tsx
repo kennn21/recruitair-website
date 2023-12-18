@@ -57,8 +57,7 @@ const UpdateJobTable = ({ jobProp }: Props) => {
 
   const form = useForm<updateJobType>({
     resolver: zodResolver(updateJobSchema),
-    defaultValues: {
-    },
+    defaultValues: jobProp,
   })
 
   const router = useRouter();
@@ -110,7 +109,7 @@ const UpdateJobTable = ({ jobProp }: Props) => {
                               id="title" 
                               className="col-span-3"    
                               placeholder="Input Job Title" {...field}
-                              defaultValue={jobProp.title}
+                              value={field.value}
                               onChange={field.onChange}
                               />
                           </div>
@@ -133,7 +132,7 @@ const UpdateJobTable = ({ jobProp }: Props) => {
                               id="imageUrl" 
                               className="col-span-3"    
                               placeholder="Input Image Url" {...field}
-                              defaultValue={jobProp.imageUrl}
+                              value={field.value}
                               onChange={field.onChange}
                               />
                           </div>
@@ -158,11 +157,11 @@ const UpdateJobTable = ({ jobProp }: Props) => {
                                       variant={"outline"}
                                       className={cn(
                                           "w-full col-span-3",
-                                          !jobProp.startDate && "text-muted-foreground"
+                                          !field.value && "text-muted-foreground"
                                       )}
                                       >
-                                      {jobProp.startDate ? (
-                                          format(jobProp.startDate, "PPP")
+                                      {field.value ? (
+                                          format(field.value, "PPP")
                                       ) : (
                                           <span>Pick a date</span>
                                       )}   
@@ -173,7 +172,7 @@ const UpdateJobTable = ({ jobProp }: Props) => {
                                   <Calendar
                                       mode="single"
                                       captionLayout="dropdown-buttons"
-                                      selected={jobProp.startDate}
+                                      selected={field.value}
                                       onSelect={field.onChange}
                                       fromYear={1960}
                                       toYear={2030}
@@ -202,11 +201,11 @@ const UpdateJobTable = ({ jobProp }: Props) => {
                                       variant={"outline"}
                                       className={cn(
                                           "w-full col-span-3",
-                                          !jobProp.endDate && "text-muted-foreground"
+                                          !field.value && "text-muted-foreground"
                                       )}
                                       >
-                                      {jobProp.endDate ? (
-                                          format(jobProp.endDate, "PPP")
+                                      {field.value ? (
+                                          format(field.value, "PPP")
                                       ) : (
                                           <span>Pick a date</span>
                                       )}   
@@ -217,7 +216,7 @@ const UpdateJobTable = ({ jobProp }: Props) => {
                                   <Calendar
                                       mode="single"
                                       captionLayout="dropdown-buttons"
-                                      selected={jobProp.endDate}
+                                      selected={field.value}
                                       onSelect={field.onChange}
                                       fromYear={1960}
                                       toYear={2030}
@@ -244,7 +243,7 @@ const UpdateJobTable = ({ jobProp }: Props) => {
                                   id="description" 
                                   className="col-span-3"    
                                   placeholder="Input Job Description" {...field}
-                                  defaultValue={jobProp.description}
+                                  defaultValue={field.value}
                                   onChange={field.onChange}
                                   />
                           </div>
@@ -267,7 +266,7 @@ const UpdateJobTable = ({ jobProp }: Props) => {
                                   id="requirements" 
                                   className="col-span-3"    
                                   placeholder="Input Job Requirements" {...field}
-                                  defaultValue={jobProp.requirements}
+                                  defaultValue={field.value}
                                   onChange={field.onChange}
                                   />
                           </div>
@@ -290,7 +289,7 @@ const UpdateJobTable = ({ jobProp }: Props) => {
                                   id="location" 
                                   className="col-span-3"    
                                   placeholder="Input Job Location" {...field}
-                                  defaultValue={jobProp.location}
+                                  defaultValue={field.value}
                                   onChange={field.onChange}
                                   />
                           </div>
@@ -314,7 +313,7 @@ const UpdateJobTable = ({ jobProp }: Props) => {
                                   type="number"
                                   className="col-span-3"    
                                   placeholder="Input Job Salary" {...field}
-                                  defaultValue={jobProp.salary}
+                                  defaultValue={field.value}
                                   onChange={field.onChange}
                                   />
                           </div>

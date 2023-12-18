@@ -27,7 +27,7 @@ const JobTable = async() => {
           <TableRow>
             <TableHead className="w-[50px]"><strong>ID</strong></TableHead>
             <TableHead><strong>Title</strong></TableHead>
-            <TableHead><strong>Image Url</strong></TableHead>
+            <TableHead className="w-[100px] text-ellipsis"><strong>Image Url</strong></TableHead>
             <TableHead><strong>Start Date</strong></TableHead>
             <TableHead><strong>End Date</strong></TableHead>
             <TableHead><strong>Created By</strong></TableHead>
@@ -44,7 +44,7 @@ const JobTable = async() => {
             <TableRow key={job.id}>
               <TableCell className="font-medium">{job.id}</TableCell>
               <TableCell>{job.title}</TableCell>
-              <TableCell>{job.imageUrl}</TableCell>
+              <TableCell><span className="w-[100px] truncate block">{job.imageUrl}</span></TableCell>
               <TableCell>{format(job.startDate, "PPP")}</TableCell>
               <TableCell>{format(job.endDate, "PPP")}</TableCell>
               <TableCell>{job.createdBy}</TableCell>
@@ -53,7 +53,7 @@ const JobTable = async() => {
               <TableCell>{job.requirements}</TableCell>
               <TableCell>{job.location}</TableCell>
               <TableCell>{job.salary}</TableCell>
-              <TableCell><UpdateJobTable key={job.id} jobProp={job}/><br/><DeleteJobTable key={job.id} job={job}/></TableCell>
+              <TableCell><UpdateJobTable jobProp={job}/><br/><DeleteJobTable job={job}/></TableCell>
             </TableRow>
           ))}
         </TableBody>
