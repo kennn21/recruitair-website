@@ -29,13 +29,25 @@ generator client {
 
 // schema.prisma
 
+//Info Table
+model Info {
+  id        String   @id @default(uuid())
+  title     String
+  content   String?  @db.LongText
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("info")
+}
+
 // User Table
 model User {
   id                    Int      @id @default(autoincrement())
   externalId            String   @unique
   imageUrl              String
   FirstName             String
-  LastName              String
+  LastName              String   @default("")
   email                 String
   birthDate             DateTime
   address               String

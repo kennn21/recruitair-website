@@ -1,3 +1,4 @@
+import AIChatButton from "@/components/chatbot/AIChatButton";
 import { CTAButton } from "@/components/ui/custom/CTAButton";
 import { HomeContent } from "@/content/home";
 import Image from "next/image";
@@ -23,6 +24,7 @@ const HeroSection = () => {
                                 {content.CTAButton}
                             </CTAButton>
                         </Link>
+                        <AIChatButton/>
                     </div>
                 </div>
                 <div id='right' className="w-1/2 justify-around items-center flex">

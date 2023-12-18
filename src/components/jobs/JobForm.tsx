@@ -37,8 +37,13 @@ import {
 } from "@/components/ui/popover"
 
 import { createApplication } from "@/actions/application"
+import { toast } from "sonner"
 
-const JobForm = () => {
+type JobFormProps = {
+  jobId: number
+}
+
+const JobForm = ({jobId}: JobFormProps) => {
     const form = useForm<createApplicationSchemaType>({
         resolver: zodResolver(createApplicationSchema),
         defaultValues: {
@@ -47,102 +52,20 @@ const JobForm = () => {
 
     const onSubmit = async (data: createApplicationSchemaType) => {
       try {
-        console.log(data);
-        await createApplication(data);
+        const res = await createApplication(data, jobId);
+
+        if(!res) return toast("Error creating application")
+
+        toast.success(`Successfully applied for ${res.title}`)
+
       } catch(e: any) {
-        alert("ERROR!");
-        console.log("Error while creating application ", e);
+        toast.error(`${e}`)
       }
     }
 
   return (
     <Form {...form}>
   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-      <FormField
-        control={form.control}
-        name="username"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Username</FormLabel>
-            <FormControl>
-              <Input placeholder="Input Username" {...field} />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-
-      <FormField
-        control={form.control}
-        name="email"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Email</FormLabel>
-            <FormControl>
-              <Input placeholder="Input Email" {...field} />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-
-    <div className="grid grid-cols-2 gap-x-56"> 
-      <FormField
-        control={form.control}
-        name="phoneNumber"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Phone Number</FormLabel>
-            <FormControl>
-              <Input placeholder="Input Phone Number" {...field} className="w-full" />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-
-      <FormField
-        control={form.control}
-        name="dob"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Date of Birth</FormLabel>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <FormControl>
-                    <Button
-                      variant={"outline"}
-                      className={cn(
-                        "w-full",
-                        !field.value && "text-muted-foreground"
-                      )}
-                    >
-                      {field.value ? (
-                        format(field.value, "PPP")
-                      ) : (
-                        <span>Pick a date</span>
-                      )}
-                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                    </Button>
-                  </FormControl>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar
-                    mode="single"
-                    captionLayout="dropdown-buttons"
-                    selected={field.value}
-                    onSelect={field.onChange}
-                    fromYear={1960}
-                    toYear={2030}
-                  />
-                </PopoverContent>
-              </Popover>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-    </div>
-
     <FormField
         control={form.control}
         name="workExperiences"

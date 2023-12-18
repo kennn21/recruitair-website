@@ -4,15 +4,43 @@ import Link from "next/link";
 import { SquareUserRound } from "lucide-react";
 import { cn } from "@/lib/utils";
 import SiteLogo from "../site-logo";
-
+import { GetCurrentRole } from "@/actions/user";
+import { Role } from "@prisma/client";
 
 type menuItem = {
     label: string,
     path: string,
 }
-const MenuBar = () => {
+const MenuBar = async () => {
+    
+    const role: Role | {error: any} = await GetCurrentRole()
 
-    const links: menuItem[] = [
+    const links: menuItem[] = 
+    role === "RECRUITER" ?
+    [
+        {
+            label: "Home",
+            path: '/home',
+        },
+        {
+            label: "Job List",
+            path: '/jobs',
+        },
+        {
+            label: "About",
+            path: '/about',
+        },
+        {
+            label: "Add Info",
+            path: "/info",
+        },
+        {
+            label: "Profile",
+            path: '/profile/edit',
+        },
+
+    ] :
+    [
         {
             label: "Home",
             path: '/home',
@@ -29,6 +57,7 @@ const MenuBar = () => {
             label: "Profile",
             path: '/profile/edit',
         },
+
     ]
 
     return ( 

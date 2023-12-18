@@ -79,7 +79,6 @@ const EditProfileForm = () => {
     return ( 
         userProfile ?
         <>
-            <h2>{userProfile?.FirstName}</h2>
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                     <div className="grid grid-cols-2 gap-x-56"> 
