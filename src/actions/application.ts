@@ -13,8 +13,8 @@ export async function createApplication(form: createApplicationSchemaType) {
 
     return await prisma.application.create({
         data: {
-            jobId: 19, //example
-            userId: parseInt(user.id), //example
+            jobId: 1, //example
+            userId: 1, //example
             status: "INITIAL_APPLICATION",
             yearsOfWorkExperience: form.workExperiences,
             willingToWorkInOffice: form.isWorkInOffice== "YES" ? true : false,
