@@ -12,16 +12,16 @@
 //   directUrl = env("DATABASE_URL_NON_POOLING") // uses a direct connection
 // }
 
-// datasource db {
-//   provider = "postgresql"
-//   url      = env("DATABASE_URL")
-// }
-
 datasource db {
-  provider     = "mysql"
-  url          = env("DATABASE_URL")
-  relationMode = "prisma"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
+
+// datasource db {
+//   provider     = "mysql"
+//   url          = env("DATABASE_URL")
+//   relationMode = "prisma"
+// }
 
 generator client {
   provider = "prisma-client-js"
@@ -112,7 +112,7 @@ model Application {
   experienceInField     Boolean?
 
   // Relationships
-  job  Job  @relation(fields: [jobId], references: [id])
+  job  Job  @relation(fields: [jobId], references: [id], onDelete: Cascade)
   user User @relation(fields: [userId], references: [id])
 
   @@index([jobId])
