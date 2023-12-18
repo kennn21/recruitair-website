@@ -91,7 +91,7 @@ const UpdateJobTable = ({ jobProp }: Props) => {
           <DialogHeader>
             <DialogTitle>Update Job {jobProp.title}</DialogTitle>
             <DialogDescription>
-              Update job here. Click save when you're done.
+              Update job here. Click save when you are done.
             </DialogDescription>
           </DialogHeader>
               <div className="grid gap-4 py-4">

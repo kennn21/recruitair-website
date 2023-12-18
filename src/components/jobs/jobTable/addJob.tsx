@@ -87,7 +87,7 @@ const AddJobTable = () => {
         <DialogHeader>
           <DialogTitle>Create New Job</DialogTitle>
           <DialogDescription>
-            Add new job here. Click save when you're done.
+            Add new job here. Click save when you are done.
           </DialogDescription>
         </DialogHeader>
             <div className="grid gap-4 py-4">
