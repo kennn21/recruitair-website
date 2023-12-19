@@ -1,11 +1,11 @@
 import JobList from "@/components/jobs/JobList";
-import JobListItem from "@/components/jobs/JobListItem";
-import { dummyJobs } from "@/data/dummy/jobs";
+import prisma from "@/lib/prisma"
 
-const VacanciesSection = () => {
+const VacanciesSection = async () => {
     const content = {
         title: 'Job Vacancies',
     }
+    const jobs = await prisma.job.findMany()
 
     return ( 
         <section
@@ -19,7 +19,7 @@ const VacanciesSection = () => {
             "
         >
             <h1 className="text-4xl font-bold leading-[80px] text-center w-full h-fit mb-10">{content.title}</h1>
-            <JobList jobs={dummyJobs} />
+            <JobList jobs={jobs} />
         </section>
      );
 }
