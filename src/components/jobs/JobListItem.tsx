@@ -13,7 +13,7 @@ const JobListItem = ({ job }: {job: Job}) => {
                     <div className="relative h-[90px] w-[90px]">
                         <Image fill style={{objectFit: "cover"}} alt="" src={job.imageUrl as string}/>
                     </div>
-                    <CardContent>
+                    <CardContent className="pt-4">
                         <h1>{job.title}</h1>
                         <CardDescription>
                             {job.description}

@@ -38,12 +38,16 @@ import {
 
 import { createApplication } from "@/actions/application"
 import { toast } from "sonner"
+import { useRouter } from "next/navigation"
 
 type JobFormProps = {
   jobId: number
 }
 
 const JobForm = ({jobId}: JobFormProps) => {
+  
+    const router = useRouter()
+
     const form = useForm<createApplicationSchemaType>({
         resolver: zodResolver(createApplicationSchema),
         defaultValues: {
@@ -57,6 +61,8 @@ const JobForm = ({jobId}: JobFormProps) => {
         if(!res) return toast("Error creating application")
 
         toast.success(`Successfully applied for ${res.title}`)
+
+        router.push('/')
 
       } catch(e: any) {
         toast.error(`${e}`)

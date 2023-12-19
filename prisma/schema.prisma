@@ -77,8 +77,8 @@ model Job {
   endDate      DateTime
   createdBy    String
   updatedBy    String
-  description  String   @db.VarChar(255)
-  requirements String   @db.VarChar(255)
+  description  String   @db.LongText
+  requirements String   @db.LongText
   location     String   @db.LongText
   salary       Float
 

@@ -4,8 +4,8 @@ import Link from 'next/link'
 
 const JobList = ({ jobs }: {jobs: Job[]}) => {
     return ( 
-            <div className="justify-center w-full">
-                <div className="flex flex-row w-full flex-wrap justify-center gap-2 items-center min-h-[50vh]">
+            <div className="justify-center w-full mt-10">
+                <div className="flex flex-col w-full flex-wrap justify-start gap-2 items-center min-h-[50vh]">
 
                     {
                         jobs.length > 0 ?
