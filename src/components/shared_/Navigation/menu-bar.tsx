@@ -39,6 +39,10 @@ const MenuBar = async () => {
             path: '/admin/jobs/management'
         },
         {
+            label: "Application",
+            path: '/admin/jobs/application'
+        },
+        {
             label: "Profile",
             path: '/profile/edit',
         },
