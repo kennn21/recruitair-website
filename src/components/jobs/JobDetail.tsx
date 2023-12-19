@@ -1,6 +1,8 @@
 import { Job } from "@prisma/client";
 import { Button } from "../ui/button";
-import { PinTopIcon } from "@radix-ui/react-icons";
+import { extractTitleFromGoogleMapsLink } from "@/lib/location";
+import Link from "next/link";
+import { MapPin } from "lucide-react";
 
 type JobDetailProps = {
   job: {  
@@ -17,30 +19,46 @@ type JobDetailProps = {
     requirements: string;  
     location: string;  
     salary: number;  
-  } | null;
+  };
 }
 
 const JobDetail = ({job}:JobDetailProps) => {
+
+    const locationName = extractTitleFromGoogleMapsLink(job.location)
+
     return(
         <>
-          <header className="w-full">
-            <h1>{job?.title}</h1>
+          <header className="w-full flex flex-col items-center text-center">
+            <h1 className="text-4xl font-bold leading-[80px]">{job.title}</h1>
             <div id='grid' className="flex justify-between w-fit">
-              <div id="job-location">
-                <PinTopIcon/>
-                <span>{job?.location}</span>
-              </div>
-              <div id="job-req-experience">
-                {job?.requirements}
-              </div>
+              <a target="_blank" href={job.location} rel="noopener noreferrer">
+                <div id="job-location" className="flex gap-1">
+                    <MapPin/>
+                    <span>{locationName}</span>
+                </div>
+              </a>
             </div>
-            <section id="content">
-              <h2>Job Description</h2>
-                {job?.description}
+
+            <section id="content" className="mt-10 bg-shadeyellow w-full min-h-[50vh]">
+              <h2 className="text-2xl font-bold leading-[80px]">Job Description</h2>
+                {job.description}
               <br/>
-              <h2>Requirements</h2>
-              <p>{job?.requirements}</p>
+              <h2 className="text-2xl font-bold leading-[80px]">Requirements</h2>
+              {
+                job.requirements ?
+                <p>{job.requirements}</p> :
+                <p className=" text-neutral-400"><i>The recruiter did not put the base requirement here. Please contact the recruiter for further information..</i></p>
+              }
+              
             </section>
+
+            <Link href={`/jobs/${job.id}/application/`}>
+              <Button
+                className="mt-5"
+                >
+                  Apply
+              </Button>
+            </Link>
           </header>
         </>
     );

@@ -42,9 +42,12 @@ import { User } from "@/types/user"
 import { useEffect, useState } from "react"
 import { useUser } from "@clerk/nextjs"
 import { Role } from "@prisma/client"
+import { useRouter } from "next/navigation"
 
 const EditProfileForm = () => {
     const [userProfile, setUserProfile] = useState<User | null>(null);
+
+    const router = useRouter()
 
     const fetchUserProfile = async () => {
         console.log("fetching")
@@ -212,7 +215,8 @@ const EditProfileForm = () => {
 
                             if(!res.error) {
                                 refetch()
-                                return toast(`Changed to ${res.message}`)
+                                toast(`Changed to ${res.message}`)
+                                router.refresh()
                             }
                             toast(`Failed ${res.error}`)
                         } 
