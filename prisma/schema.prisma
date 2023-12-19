@@ -17,6 +17,11 @@
 //   url      = env("DATABASE_URL")
 // }
 
+// datasource db {
+//   provider = "postgresql"
+//   url      = env("DATABASE_URL")
+// }
+
 datasource db {
   provider     = "mysql"
   url          = env("DATABASE_URL")
@@ -74,7 +79,7 @@ model Job {
   updatedBy    String
   description  String   @db.VarChar(255)
   requirements String   @db.VarChar(255)
-  location     String
+  location     String   @db.LongText
   salary       Float
 
   // Relationships

@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const JobListItem = ({ job }: {job: Job}) => {
     return ( 
-        <Link href={`jobs/${job.id}/application/`} className="w-full">
+        <Link href={`jobs/${job.id}`} className="w-full h-fit">
             <Card
                 className="w-full h-[100px] flex flex-row justify-between"
                 >
